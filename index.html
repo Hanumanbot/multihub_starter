@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multihub — Soluções white label</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="./dist/output.css" rel="stylesheet" />
+  <style>
+    html { scroll-behavior: smooth; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .f-inter { font-family: 'Inter', sans-serif; }
+    .chip[aria-pressed="true"] { background:#EEFBF5; border-color:#008860; color:#008860; }
+    .field:focus { outline:none; border-color:#008860; }
+  </style>
+</head>
+<body class="bg-white text-[#101714] antialiased">
+
+<!-- Ícones reutilizáveis -->
+<svg width="0" height="0" class="absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 19 19"><path d="M3.96 9.5h11.08M9.5 15.04 15.04 9.5 9.5 3.96" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 18 18"><path d="M6.75 9l1.5 1.5 3-3M16.5 9a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 22 22"><path d="M2.75 8.25a1.83 1.83 0 0 1 1.83-1.83h12.84a1.83 1.83 0 0 1 1.83 1.83m-16.5 0v1.83m0-1.83V4.58c0-1.01.82-1.83 1.83-1.83h12.84c1.01 0 1.83.82 1.83 1.83v3.67m0 0v1.83m-16.5 0h2.75c.73 0 1.47.28 1.92.83l1.01.82c1.47 1.47 3.76 1.47 5.23 0l1.01-.82c.46-.46 1.19-.83 1.93-.83h2.65m-16.5 0v7.34c0 1.01.82 1.83 1.83 1.83h12.84c1.01 0 1.83-.82 1.83-1.83v-7.34" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 22 22"><path d="M14.67 9.17a3.67 3.67 0 0 1-7.34 0M2.84 5.53h16.32M3.12 5.01l1.83-2.45a1.83 1.83 0 0 1 1.47-.73h9.17c.58 0 1.12.27 1.47.73l1.83 2.45c.24.32.37.7.37 1.1v12.22a1.83 1.83 0 0 1-1.83 1.83H4.58a1.83 1.83 0 0 1-1.83-1.83V6.11c0-.2.03-.4.09-.58" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-dollar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor"/><path d="M15 8.5H10.5a1.75 1.75 0 0 0 0 3.5h3a1.75 1.75 0 0 1 0 3.5H9M12 6.5v2M12 15.5v2" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M18 21a8 8 0 0 0-16 0M10 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm12 7c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-workflow" viewBox="0 0 24 24"><path d="M7 11v4a2 2 0 0 0 2 2h4M7 11h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2Zm6 6v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2Z" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-finger" viewBox="0 0 24 24"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4M14 13.12c0 2.38 0 6.38-1 8.88M17.29 21.02c.12-.6.43-2.3.5-3.02M2 12a10 10 0 0 1 18-6M2 16h.01M21.8 16c.2-2 .13-5.35 0-6M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2M8.65 22c.21-.66.45-1.32.57-2M9 6.8a6 6 0 0 1 9 5.2v2" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor"/><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor"/><circle cx="12" cy="12" r="2" fill="none" stroke="currentColor"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5m0-5h-3a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2m0 0v2a4 4 0 0 1-4 4h-5" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M12 16v5M16 14v7M20 10v11M22 3l-8.65 8.65a.5.5 0 0 1-.7 0L9.35 8.35a.5.5 0 0 0-.7 0L2 15M4 18v3M8 14v7" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-tags" viewBox="0 0 24 24"><path d="M2 7v6.17a2 2 0 0 0 .59 1.41l6.7 6.71a2 2 0 0 0 2.82.08M13.17 2a2 2 0 0 1 1.41.59l6.71 6.7a2 2 0 0 1 0 2.82l-4.59 4.59a2 2 0 0 1-2.82 0l-6.7-6.71A2 2 0 0 1 6 9.17V3a1 1 0 0 1 1-1h6.17ZM11 6.5h-1" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 22 22"><path d="M11 20.17a9.17 9.17 0 1 1 9.17-10.09c0 1.22-.48 2.38-1.34 3.24a4.58 4.58 0 0 1-3.24 1.34H13.5a1.83 1.83 0 0 0-1.43 3l.44.58a1.83 1.83 0 0 1-1.28 3Zm1.83-14.21h.01m3.66 3.66h.01M6.42 11.46h.01m1.82-4.58h.01" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-panels" viewBox="0 0 22 22"><path d="M2.75 8.25h5.5m-5.5 0v9.17c0 1.01.82 1.83 1.83 1.83h3.67M2.75 8.25V4.58c0-1.01.82-1.83 1.83-1.83h12.84c1.01 0 1.83.82 1.83 1.83v3.67m-11 0h11m-11 0v11m11-11v9.17c0 1.01-.82 1.83-1.83 1.83H8.25" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 22 22"><path d="M9.17 4.58H2.75M11 17.42H2.75M12.83 2.75v3.67m0-1.84h6.42M14.67 15.58v3.67m0-1.83h4.58M19.25 11H11M7.33 9.17v3.66M7.33 11H2.75" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 21 21"><path d="M17.5 1.75v3.5m1.75-1.75h-3.5M9.64 2.46a.88.88 0 0 1 1.72 0l.92 4.87a2 2 0 0 0 1.4 1.4l4.86.91a.88.88 0 0 1 0 1.72l-4.86.92a2 2 0 0 0-1.4 1.4l-.92 4.86a.88.88 0 0 1-1.72 0l-.92-4.86a2 2 0 0 0-1.4-1.4l-4.86-.92a.88.88 0 0 1 0-1.72l4.86-.91a2 2 0 0 0 1.4-1.4l.92-4.87ZM5.25 17.5a1.75 1.75 0 1 1-3.5 0 1.75 1.75 0 0 1 3.5 0Z" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-blocks" viewBox="0 0 25 25"><path d="M10.42 22.92v-8.34m0 8.34H4.17a2.08 2.08 0 0 1-2.09-2.09v-6.25m8.34 8.34h6.25a2.08 2.08 0 0 0 2.08-2.09v-5.2a1.04 1.04 0 0 0-1.04-1.05H10.42m0 0V7.3a1.04 1.04 0 0 0-1.05-1.05H4.17a2.08 2.08 0 0 0-2.09 2.08v6.25m8.34 0H2.08m13.54-12.5h6.25c.58 0 1.05.47 1.05 1.04v6.25c0 .58-.47 1.04-1.05 1.04h-6.25a1.04 1.04 0 0 1-1.04-1.04V3.12c0-.57.47-1.04 1.04-1.04Z" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 18 18"><path d="M15 7.5c0 3.75-4.15 7.65-5.55 8.85a.88.88 0 0 1-.9 0C7.15 15.15 3 11.25 3 7.5a6 6 0 0 1 12 0Zm-3.75 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 18 18"><path d="M1.54 1.54h1.5l.8 3.75m0 0 1.19 5.56a1.5 1.5 0 0 0 1.5 1.19h7.33a1.5 1.5 0 0 0 1.46-1.18l1.24-5.57H3.84ZM6.75 15.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm8.25 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 22 22"><path d="M12.83 16.5V7.33m0 9.17h.92m-.92 0H8.25m4.58-9.17V5.5a1.83 1.83 0 0 0-1.83-1.83H3.67A1.83 1.83 0 0 0 1.83 5.5v10.08c0 .5.4.92.92.92h1.83m8.25-9.17h3.23c.14 0 .27.03.4.09.12.06.23.14.32.25l3.19 3.99c.13.16.2.37.2.57v3.35c0 .5-.4.92-.92.92h-1.83M4.58 16.5a1.83 1.83 0 1 0 3.67 0m-3.67 0a1.83 1.83 0 1 1 3.67 0m5.5 0a1.83 1.83 0 1 0 3.67 0m-3.67 0a1.83 1.83 0 1 1 3.67 0" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-file" viewBox="0 0 22 22"><path d="M12.83 1.83H5.5a1.83 1.83 0 0 0-1.83 1.84v14.66c0 1.01.82 1.84 1.83 1.84h11c1.01 0 1.83-.83 1.83-1.84V7.33m-5.5-5.5c.29 0 .58.06.85.17.27.11.51.27.72.48l3.29 3.29c.2.2.36.45.47.72.11.27.17.56.17.84m-5.5-5.5v4.58c0 .5.4.92.92.92h4.58M9.17 8.25H7.33m7.34 3.67H7.33m7.34 3.66H7.33" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-barcode" viewBox="0 0 17 17"><path d="M2.13 3.54v9.92m3.54-9.92v9.92M8.5 3.54v9.92m3.54-9.92v9.92m2.83-9.92v9.92" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-link" viewBox="0 0 17 17"><path d="M7.08 9.21a3.54 3.54 0 0 0 5.34.38l2.13-2.12a3.54 3.54 0 0 0-5-5.02L8.32 3.67m1.6 4.12a3.54 3.54 0 0 0-5.35-.39L2.45 9.53a3.54 3.54 0 0 0 5 5.01l1.22-1.21" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 17 17"><path d="m12.04 7.08 2.83-2.83-2.83-2.84m2.83 2.84H4.96a2.83 2.83 0 0 0-2.84 2.83v.71m2.84 2.13-2.84 2.83 2.84 2.84m-2.84-2.84h9.92a2.83 2.83 0 0 0 2.83-2.83v-.71" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" fill="none" stroke="currentColor"/><path d="M7 4.5V7l1.5 1.5" fill="none" stroke="currentColor" stroke-linecap="round"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 14 14"><path d="M2 5h10M2 5v8h10V5M2 5V3h2m8 2V3h-2M4 1v2m0 0h6m0-2v2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-star" viewBox="0 0 14 14"><path d="M7 1l1.55 3.13L12 4.64 9.5 7.07l.59 3.44L7 8.89l-3.09 1.62.59-3.44L2 4.64l3.45-.51L7 1Z" fill="currentColor"/></symbol>
+    <symbol id="i-x" viewBox="0 0 16 16"><path d="M12 4 4 12M4 4l8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-tick" viewBox="0 0 16 16"><path d="M2 8l3.5 3.5L14 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="logo" viewBox="0 0 190 43"><path d="M70.28 26.27c0 .04 0 .07 0 .11 0 9.18-7.37 16.62-16.47 16.62S37.34 35.56 37.34 26.38c0-.04 0-.07 0-.11h5.04c0 .04 0 .07 0 .11 0 6.37 5.12 11.54 11.43 11.54s11.43-5.17 11.43-11.54c0-.04 0-.07 0-.11h5.03ZM66.9 9.31c1.87 0 3.38 1.53 3.38 3.41s-1.51 3.41-3.38 3.41-3.38-1.53-3.38-3.41 1.51-3.41 3.38-3.41ZM44.12 10.9h-6.79v3.67h6.79V10.9Z" fill="currentColor"/><path d="M124.04 9.36c-3.68 0-6.2 1.81-7.72 4.26V.97h-2.43v32.45h2.43V19.56c0-3.24 2.34-7.74 7.72-7.74s6.89 4.5 6.89 7.74v13.86h2.48V19.56c0-4.59-2.66-10.2-9.37-10.2Zm33.3.56v13.9c0 3.2-2.3 7.7-7.67 7.7s-6.89-4.5-6.89-7.7V9.92h-2.48v13.9c0 4.59 2.62 10.2 9.37 10.2 3.68 0 6.2-1.85 7.67-4.26v3.66h2.48V9.92h-2.48Zm21.04 21.6c-5.38 0-9.19-4.4-9.19-9.83s3.81-9.87 9.19-9.87 9.14 4.45 9.14 9.87-3.77 9.83-9.14 9.83Zm0-22.16c-4.04 0-7.26 1.95-9.19 5v-13.4h-2.48v32.45h2.48v-4.4c1.93 3.01 5.15 5 9.19 5 6.71 0 11.62-5.56 11.62-12.33 0-6.81-4.91-12.32-11.62-12.32Z" fill="currentColor"/><path d="M25.45 9.36c-3.31 0-5.6 1.62-7.03 3.71-1.19-2.23-3.26-3.71-6.43-3.71-3.08 0-4.96 1.35-6.16 3.06V9.92H0v23.5h5.84V19.93c0-2.69 1.42-4.87 4.13-4.87s3.9 1.95 3.9 4.87v13.49h5.83V19.93c0-2.69 1.42-4.87 4.13-4.87s3.91 1.95 3.91 4.87v13.49h5.83V18.73c0-4.96-2.76-9.37-8.13-9.37ZM79.88.74h-5.83v32.45h5.83V.74ZM97.66 15.06V9.69h-4.96V4.77h-5.83v4.92h-3.31v5.37h3.31v9.55c0 4.87 2.39 8.9 8.36 8.9 1.19 0 1.84-.14 2.43-.33v-5.38c-.41.05-.97.09-1.38.09-3.21 0-3.58-1.58-3.58-4.26v-8.58h4.96ZM105.38 6.26c1.75 0 3.12-1.39 3.12-3.15S107.13 0 105.38 0s-3.08 1.39-3.08 3.11 1.38 3.15 3.08 3.15Zm-2.89 26.93h5.83V9.69h-5.83v23.5Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<!-- Navegação principal -->
+<header class="sticky top-0 z-40 bg-white">
+  <div class="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-6 lg:h-[104px] lg:px-[100px]">
+    <a href="#topo" aria-label="Multihub"><svg class="h-[34px] w-[150px] text-[#101714] lg:h-[43px] lg:w-[190px]"><use href="#logo"/></svg></a>
+    <nav class="flex items-center gap-[30px]">
+      <a href="#white-label" class="hidden text-[14px] font-bold text-[#008860] lg:block">White label</a>
+      <a href="#solucoes" class="hidden text-[14px] font-medium text-[#55615B] hover:text-[#008860] lg:block">Soluções</a>
+      <a href="#quem-somos" class="hidden text-[14px] font-medium text-[#55615B] hover:text-[#008860] lg:block">Quem somos</a>
+      <button data-open-modal class="flex h-11 items-center gap-3 rounded-full bg-[#008860] pl-[7px] pr-[22px] text-[13px] font-bold text-white transition-colors hover:bg-[#006b4b]">
+        <span class="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-white text-[#008860]"><svg class="h-[19px] w-[19px]"><use href="#i-arrow"/></svg></span>
+        Fale com a Multihub
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+
+<!-- Hero -->
+<section class="bg-[#EEFBF5]">
+  <div class="mx-auto flex min-h-[602px] max-w-[1440px] flex-col items-center gap-8 px-6 py-12 lg:flex-row lg:py-[34px] lg:pl-[100px] lg:pr-[80px]">
+    <div class="flex w-full flex-col items-start gap-[25px] lg:w-[610px]">
+      <div class="flex items-center gap-[9px]">
+        <span class="h-[6px] w-[6px] rounded-full bg-[#008860]"></span>
+        <span class="text-[12px] font-bold tracking-[1.6px] text-[#008860]">TECNOLOGIA MULTIHUB. IDENTIDADE SUA.</span>
+      </div>
+      <h1 class="f-inter text-[44px] leading-[1.06] tracking-[-1.8px] text-[#101714] lg:text-[64px] lg:tracking-[-2.8px]">Seu negócio.<br>Sua marca.<br><span class="text-[#008860]">Nosso white label.</span></h1>
+      <p class="max-w-[530px] text-[16px] leading-[1.65] text-[#55615B] lg:text-[18px]">Transforme uma solução tecnológica pronta em uma experiência com a sua identidade. Gestor de pagamentos e e-commerce para colocar sua marca em primeiro plano.</p>
+      <div class="flex flex-wrap items-center gap-6">
+        <a href="#solucoes" class="flex h-[54px] items-center gap-3 rounded-full bg-[#008860] pl-[7px] pr-[22px] text-[14px] font-bold text-white transition-colors hover:bg-[#006b4b]">
+          <span class="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white text-[#008860]"><svg class="h-[19px] w-[19px]"><use href="#i-arrow"/></svg></span>
+          Conhecer as soluções
+        </a>
+        <a href="#white-label" class="text-[14px] font-bold text-[#008860] hover:underline">Entenda o white label ↓</a>
+      </div>
+    </div>
+
+    <div class="relative flex h-[420px] w-full flex-1 items-end justify-center lg:h-[535px]">
+      <div class="absolute bottom-[40px] left-1/2 h-[330px] w-[330px] -translate-x-1/2 rounded-full bg-gradient-to-r from-[#01FFA4] to-[#27F5D9] lg:bottom-[9px] lg:left-[calc(50%+24px)] lg:h-[490px] lg:w-[490px]"></div>
+      <div class="absolute bottom-[25px] left-1/2 hidden h-[538px] w-[538px] -translate-x-1/2 rounded-full border border-[#008860] opacity-[0.16] lg:block"></div>
+      <img src="https://api.builder.io/api/v1/image/assets/TEMP/9285403fd5fc178400351fd41de9432d8864e44c?width=1140" alt="Empreendedor Multihub" class="relative z-10 h-[360px] w-auto max-w-none lg:h-[548px]" />
+      <div class="absolute bottom-[8px] left-1/2 z-20 flex -translate-x-1/2 items-center gap-[14px] rounded-[24px] bg-white p-5 shadow-[0_16px_40px_rgba(6,62,36,0.13)] lg:bottom-[52px] lg:left-[calc(50%-3px)]">
+        <span class="flex h-11 w-11 items-center justify-center rounded-[12px] bg-[#EEFBF5] text-[#008860]"><svg class="h-[26px] w-[26px]"><use href="#i-finger"/></svg></span>
+        <span class="flex flex-col gap-1">
+          <span class="text-[16px] font-bold leading-none">A tecnologia é nossa.</span>
+          <span class="text-[14px] leading-none text-[#008860]">A identidade é toda sua.</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Soluções em destaque -->
+<div class="border-b border-[#DCE8E1] bg-white">
+  <div class="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-4 px-6 py-5 lg:h-[74px] lg:px-[100px] lg:py-0">
+    <span class="text-[13px] font-bold text-[#55615B]">DUAS SOLUÇÕES. A SUA MARCA.</span>
+    <div class="flex items-center gap-3 text-[#008860]"><svg class="h-[22px] w-[22px]"><use href="#i-wallet"/></svg><span class="text-[16px] font-semibold text-[#101714]">Gestor de pagamentos</span></div>
+    <div class="flex items-center gap-3 text-[#008860]"><svg class="h-[22px] w-[22px]"><use href="#i-bag"/></svg><span class="text-[16px] font-semibold text-[#101714]">E-commerce</span></div>
+    <span class="text-[14px] text-[#008860]">Prontas para a sua identidade ↗</span>
+  </div>
+</div>
+
+<!-- O que é white label -->
+<section id="white-label" class="scroll-mt-24 bg-[#080D0B] px-6 py-16 lg:px-[100px] lg:py-[88px]">
+  <div class="mx-auto flex max-w-[1240px] flex-col gap-12">
+    <div class="flex flex-col items-start gap-10 lg:flex-row lg:gap-[88px]">
+      <div class="flex w-full flex-col gap-[22px] lg:w-[500px]">
+        <div class="flex items-center gap-[9px]"><span class="h-[6px] w-[6px] rounded-full bg-[#01FFA4]"></span><span class="text-[12px] font-bold tracking-[1.6px] text-[#01FFA4]">O QUE É WHITE LABEL?</span></div>
+        <h2 class="f-inter text-[36px] font-bold leading-[1.1] tracking-[-1.8px] text-white lg:text-[46px]">A solução já existe.<br><span class="text-[#01FFA4]">O próximo nome<br>pode ser o seu.</span></h2>
+      </div>
+      <div class="flex flex-1 flex-col gap-[18px] lg:pt-8">
+        <p class="text-[17px] leading-[1.7] text-white">White label é contratar uma solução tecnológica pronta e personalizá-la com a marca e a identidade visual da sua empresa.</p>
+        <p class="text-[16px] leading-[1.7] text-[#B7C9C1]">Em vez de concentrar esforços em desenvolver a tecnologia, você parte de uma base existente. A Multihub oferece a solução; você dá a ela a sua identidade e define sua estratégia de venda.</p>
+      </div>
+    </div>
+
+    <div class="h-px w-full bg-[#294037]"></div>
+
+    <div class="grid grid-cols-1 gap-[14px] md:grid-cols-2 lg:grid-cols-3">
+      <div class="flex min-h-[104px] items-start gap-4 rounded-[12px] border border-[#294037] bg-[#101B16] p-5"><svg class="h-6 w-6 shrink-0 text-[#01FFA4]"><use href="#i-dollar"/></svg><div class="flex flex-col gap-[6px]"><h3 class="text-[15px] font-bold text-white">Redução de custos</h3><p class="text-[12px] leading-[1.6] text-[#B7C9C1]">Uma solução pronta, sem desenvolver do zero.</p></div></div>
+      <div class="flex min-h-[104px] items-start gap-4 rounded-[12px] border border-[#294037] bg-[#101B16] p-5"><svg class="h-6 w-6 shrink-0 text-[#01FFA4]"><use href="#i-users"/></svg><div class="flex flex-col gap-[6px]"><h3 class="text-[15px] font-bold text-white">Mão de obra especializada</h3><p class="text-[12px] leading-[1.6] text-[#B7C9C1]">Conhecimento técnico por trás da sua operação.</p></div></div>
+      <div class="flex min-h-[104px] items-start gap-4 rounded-[12px] border border-[#294037] bg-[#101B16] p-5"><svg class="h-6 w-6 shrink-0 text-[#01FFA4]"><use href="#i-workflow"/></svg><div class="flex flex-col gap-[6px]"><h3 class="text-[15px] font-bold text-white">Otimização de processos</h3><p class="text-[12px] leading-[1.6] text-[#B7C9C1]">Ferramentas para organizar a rotina do negócio.</p></div></div>
+      <div class="flex min-h-[104px] items-start gap-4 rounded-[12px] border border-[#294037] bg-[#101B16] p-5"><svg class="h-6 w-6 shrink-0 text-[#01FFA4]"><use href="#i-finger"/></svg><div class="flex flex-col gap-[6px]"><h3 class="text-[15px] font-bold text-white">Marca própria</h3><p class="text-[12px] leading-[1.6] text-[#B7C9C1]">Sua identidade na experiência que você oferece.</p></div></div>
+      <div class="flex min-h-[104px] items-start gap-4 rounded-[12px] border border-[#294037] bg-[#101B16] p-5"><svg class="h-6 w-6 shrink-0 text-[#01FFA4]"><use href="#i-target"/></svg><div class="flex flex-col gap-[6px]"><h3 class="text-[15px] font-bold text-white">Foco na venda</h3><p class="text-[12px] leading-[1.6] text-[#B7C9C1]">Mais atenção à sua estratégia comercial.</p></div></div>
+      <div class="flex min-h-[104px] items-start gap-4 rounded-[12px] border border-[#294037] bg-[#101B16] p-5"><svg class="h-6 w-6 shrink-0 text-[#01FFA4]"><use href="#i-zap"/></svg><div class="flex flex-col gap-[6px]"><h3 class="text-[15px] font-bold text-white">Agilidade</h3><p class="text-[12px] leading-[1.6] text-[#B7C9C1]">Parta de uma tecnologia que já está pronta.</p></div></div>
+      <div class="flex min-h-[104px] items-start gap-4 rounded-[12px] border border-[#294037] bg-[#101B16] p-5"><svg class="h-6 w-6 shrink-0 text-[#01FFA4]"><use href="#i-headset"/></svg><div class="flex flex-col gap-[6px]"><h3 class="text-[15px] font-bold text-white">Suporte contínuo</h3><p class="text-[12px] leading-[1.6] text-[#B7C9C1]">Conte com apoio ao longo da sua jornada.</p></div></div>
+      <div class="flex min-h-[104px] items-start gap-4 rounded-[12px] border border-[#294037] bg-[#101B16] p-5"><svg class="h-6 w-6 shrink-0 text-[#01FFA4]"><use href="#i-chart"/></svg><div class="flex flex-col gap-[6px]"><h3 class="text-[15px] font-bold text-white">Escalabilidade</h3><p class="text-[12px] leading-[1.6] text-[#B7C9C1]">Uma base tecnológica para acompanhar o negócio.</p></div></div>
+      <div class="flex min-h-[104px] items-start gap-4 rounded-[12px] border border-[#294037] bg-[#101B16] p-5"><svg class="h-6 w-6 shrink-0 text-[#01FFA4]"><use href="#i-tags"/></svg><div class="flex flex-col gap-[6px]"><h3 class="text-[15px] font-bold text-white">Liberdade de preços</h3><p class="text-[12px] leading-[1.6] text-[#B7C9C1]">Defina os preços de revenda da sua solução.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Personalização -->
+<section class="mx-auto flex max-w-[1440px] flex-col items-center gap-10 px-6 py-16 lg:flex-row lg:gap-[76px] lg:px-[100px] lg:py-[96px]">
+  <div class="flex w-full flex-col gap-6 lg:w-[540px] lg:shrink-0">
+    <div class="flex items-center gap-[9px]"><span class="h-[6px] w-[6px] rounded-full bg-[#008860]"></span><span class="text-[12px] font-bold tracking-[1.6px] text-[#008860]">PERSONALIZAÇÃO COM PROPÓSITO</span></div>
+    <h2 class="f-inter text-[34px] font-bold leading-[1.12] tracking-[-1.5px] lg:text-[42px]">Não é só trocar o nome.<br>É colocar a sua<br>identidade em cena.</h2>
+    <p class="text-[16px] leading-[1.7] text-[#55615B]">A tecnologia é o ponto de partida. A forma como sua empresa se apresenta é o que torna a solução reconhecível para o seu público.</p>
+    <div class="flex flex-col gap-5">
+      <div class="flex items-start gap-4"><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#EEFBF5] text-[#008860]"><svg class="h-[22px] w-[22px]"><use href="#i-palette"/></svg></span><div class="flex flex-col gap-[5px]"><h3 class="text-[15px] font-bold">Marca e identidade visual</h3><p class="text-[14px] leading-[1.6] text-[#55615B]">Apresente a solução com a sua marca e uma linguagem visual alinhada ao seu negócio.</p></div></div>
+      <div class="flex items-start gap-4"><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#EEFBF5] text-[#008860]"><svg class="h-[22px] w-[22px]"><use href="#i-panels"/></svg></span><div class="flex flex-col gap-[5px]"><h3 class="text-[15px] font-bold">Uma experiência com o seu nome</h3><p class="text-[14px] leading-[1.6] text-[#55615B]">Use uma base tecnológica pronta para oferecer pagamentos ou e-commerce sob a sua identidade.</p></div></div>
+      <div class="flex items-start gap-4"><span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#EEFBF5] text-[#008860]"><svg class="h-[22px] w-[22px]"><use href="#i-sliders"/></svg></span><div class="flex flex-col gap-[5px]"><h3 class="text-[15px] font-bold">Estratégia comercial própria</h3><p class="text-[14px] leading-[1.6] text-[#55615B]">Defina seus preços de revenda e mantenha o foco no relacionamento com o seu público.</p></div></div>
+    </div>
+  </div>
+
+  <div class="flex w-full flex-1 flex-col justify-center gap-6 rounded-[32px] bg-[#EEFBF5] p-6 lg:min-h-[510px] lg:p-9">
+    <div class="flex items-center justify-between text-[#008860]"><span class="text-[11px] font-bold tracking-[1.4px]">UMA BASE. A SUA IDENTIDADE.</span><svg class="h-[21px] w-[21px]"><use href="#i-sparkles"/></svg></div>
+    <div class="flex flex-col gap-5 rounded-[24px] bg-white p-6 shadow-[0_16px_40px_rgba(6,62,36,0.13)]">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-[9px]"><span class="flex h-7 w-7 items-center justify-center rounded-[8px] bg-[#008860]"><span class="h-[10px] w-[10px] rounded-[3px] bg-[#01FFA4]"></span></span><span class="text-[17px] font-extrabold">sua marca</span></div>
+        <span class="flex gap-1"><i class="h-1 w-1 rounded-full bg-[#55615B]"></i><i class="h-1 w-1 rounded-full bg-[#55615B]"></i><i class="h-1 w-1 rounded-full bg-[#55615B]"></i></span>
+      </div>
+      <div class="h-px bg-[#DCE8E1]"></div>
+      <div class="flex flex-col gap-4">
+        <h3 class="text-[22px] font-bold">Seu negócio em primeiro plano.</h3>
+        <p class="text-[13px] leading-[1.6] text-[#55615B]">Uma solução pronta para receber a identidade da sua empresa.</p>
+        <div class="flex gap-3">
+          <div class="flex flex-1 flex-col gap-[13px] rounded-[12px] bg-[#EEFBF5] p-[18px] text-[#008860]"><svg class="h-[22px] w-[22px]"><use href="#i-wallet"/></svg><span class="text-[12px] font-bold">Pagamentos</span></div>
+          <div class="flex flex-1 flex-col gap-[13px] rounded-[12px] bg-[#EEFBF5] p-[18px] text-[#008860]"><svg class="h-[22px] w-[22px]"><use href="#i-bag"/></svg><span class="text-[12px] font-bold">E-commerce</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col gap-[5px]"><span class="text-[12px] font-bold">Sua marca • Sua identidade visual</span><span class="text-[10px] text-[#55615B]">Representação ilustrativa de personalização.</span></div>
+      <span class="flex gap-[6px]"><i class="h-[22px] w-[22px] rounded-full bg-[#008860]"></i><i class="h-[22px] w-[22px] rounded-full bg-[#01FFA4]"></i><i class="h-[22px] w-[22px] rounded-full bg-[#101714]"></i></span>
+    </div>
+  </div>
+</section>
+
+<!-- Soluções: introdução + gestor -->
+<section id="solucoes" class="mx-auto flex max-w-[1440px] scroll-mt-24 flex-col gap-11 px-6 pb-16 pt-10 lg:px-[100px]">
+  <div class="flex flex-col items-center gap-[18px] text-center">
+    <div class="flex items-center gap-[9px]"><span class="h-[6px] w-[6px] rounded-full bg-[#008860]"></span><span class="text-[12px] font-bold tracking-[1.6px] text-[#008860]">SOLUÇÕES WHITE LABEL</span></div>
+    <h2 class="f-inter text-[32px] font-bold leading-[1.15] tracking-[-1.4px] lg:text-[42px]">Tecnologia pronta para levar o seu nome.</h2>
+    <p class="max-w-[720px] text-[16px] leading-[1.6] text-[#55615B]">Escolha a solução que faz sentido para o seu negócio e ofereça uma experiência com a identidade da sua empresa.</p>
+  </div>
+
+  <div class="flex flex-col items-stretch gap-9 lg:flex-row lg:items-center">
+    <div class="flex w-full flex-col gap-[18px] rounded-[32px] bg-[#EEFBF5] px-5 pb-6 pt-10 lg:h-[510px] lg:w-[668px] lg:shrink-0 lg:px-[30px] lg:pt-[54px]">
+      <div class="overflow-hidden rounded-[16px] border border-[#DCE8E1] bg-white shadow-[0_16px_40px_rgba(6,62,36,0.13)]">
+        <div class="flex h-[34px] items-center gap-[5px] bg-[#F4F7F6] px-[14px]"><i class="h-[6px] w-[6px] rounded-full bg-[#CFD9D4]"></i><i class="h-[6px] w-[6px] rounded-full bg-[#CFD9D4]"></i><i class="h-[6px] w-[6px] rounded-full bg-[#CFD9D4]"></i><span class="flex-1 pr-[40px] text-center text-[9px] text-[#55615B]">Sua marca • Gestor de pagamentos</span></div>
+        <div class="flex min-h-[315px]">
+          <div class="hidden w-[130px] shrink-0 flex-col gap-[22px] bg-[#163D68] p-[14px] sm:flex">
+            <span class="text-[14px] font-extrabold text-white">sua marca</span>
+            <span class="text-[9px] font-bold text-[#01FFA4]">Visão geral</span>
+            <span class="text-[9px] text-[#D2E3F2]">Boletos</span><span class="text-[9px] text-[#D2E3F2]">Links de venda</span><span class="text-[9px] text-[#D2E3F2]">Carnês</span><span class="text-[9px] text-[#D2E3F2]">Assinaturas</span><span class="text-[9px] text-[#D2E3F2]">Afiliados</span>
+          </div>
+          <div class="flex flex-1 flex-col gap-[18px] p-5">
+            <div class="flex items-center justify-between"><span class="text-[18px] font-bold">Seus recebimentos</span><i class="h-[22px] w-[22px] rounded-full bg-[#EEFBF5]"></i></div>
+            <div class="flex gap-2">
+              <div class="flex flex-1 flex-col gap-[10px] rounded-[8px] bg-[#EEFBF5] p-3 text-[#008860]"><svg class="h-[17px] w-[17px]"><use href="#i-barcode"/></svg><span class="text-[8px] font-bold">Emitir boleto</span></div>
+              <div class="flex flex-1 flex-col gap-[10px] rounded-[8px] bg-[#EEFBF5] p-3 text-[#008860]"><svg class="h-[17px] w-[17px]"><use href="#i-link"/></svg><span class="text-[8px] font-bold">Criar link</span></div>
+              <div class="flex flex-1 flex-col gap-[10px] rounded-[8px] bg-[#EEFBF5] p-3 text-[#008860]"><svg class="h-[17px] w-[17px]"><use href="#i-repeat"/></svg><span class="text-[8px] font-bold">Assinaturas</span></div>
+            </div>
+            <span class="text-[11px] font-bold">Formas de receber</span>
+            <div class="flex items-center justify-between"><div class="flex flex-col gap-[3px]"><span class="text-[10px] font-semibold">Boleto</span><span class="text-[8px] text-[#55615B]">Emissão de cobranças</span></div><span class="text-[8px] text-[#008860]">Boletos</span></div>
+            <div class="flex items-center justify-between"><div class="flex flex-col gap-[3px]"><span class="text-[10px] font-semibold">Link de venda</span><span class="text-[8px] text-[#55615B]">Venda por link</span></div><span class="text-[8px] text-[#008860]">Links</span></div>
+            <div class="flex items-center justify-between"><div class="flex flex-col gap-[3px]"><span class="text-[10px] font-semibold">Assinatura</span><span class="text-[8px] text-[#55615B]">Recebimentos recorrentes</span></div><span class="text-[8px] text-[#008860]">Recorrência</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 text-[#008860]"><svg class="h-[14px] w-[14px]"><use href="#i-panels"/></svg><span class="text-[11px] text-[#55615B]">Representação ilustrativa. Sua marca no centro da operação.</span></div>
+    </div>
+
+    <div class="flex flex-1 flex-col gap-[22px] rounded-[24px] bg-gradient-to-r from-[#163D68] to-[#255EA3] p-8">
+      <div class="flex items-center gap-[9px] text-[#01FFA4]"><svg class="h-[19px] w-[19px]"><use href="#i-check"/></svg><span class="text-[11px] font-bold tracking-[1.4px]">WHITE LABEL • PAGAMENTOS</span></div>
+      <h3 class="f-inter text-[32px] font-bold leading-[1.15] text-white">Gestor de pagamentos</h3>
+      <p class="text-[15px] leading-[1.7] text-[#E1EBF5]">Gerencie de forma simples seus recebimentos online. Reúna diferentes formas de cobrança em uma solução com a sua marca, com split e gestão de afiliados.</p>
+      <ul class="grid grid-cols-1 gap-[14px] text-[14px] text-white sm:grid-cols-2">
+        <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#01FFA4]"><use href="#i-check"/></svg>Emissão de boletos</li>
+        <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#01FFA4]"><use href="#i-check"/></svg>Vendas por link</li>
+        <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#01FFA4]"><use href="#i-check"/></svg>Carnês</li>
+        <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#01FFA4]"><use href="#i-check"/></svg>Assinaturas recorrentes</li>
+        <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#01FFA4]"><use href="#i-check"/></svg>Split de pagamentos</li>
+        <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#01FFA4]"><use href="#i-check"/></svg>Gestão de afiliados</li>
+      </ul>
+      <button data-open-modal class="flex h-[54px] w-max items-center gap-3 rounded-full bg-gradient-to-r from-[#01FFA4] to-[#27F5D9] pl-[7px] pr-[22px] text-[14px] font-bold text-[#101714] transition-opacity hover:opacity-90">
+        <span class="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#101714] text-[#01FFA4]"><svg class="h-[19px] w-[19px]"><use href="#i-arrow"/></svg></span>
+        Quero meu gestor white label
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- E-commerce -->
+<section class="mx-auto flex max-w-[1440px] flex-col items-stretch gap-9 px-6 pb-16 pt-8 lg:flex-row lg:items-center lg:px-[100px] lg:pb-[96px]">
+  <div class="flex w-full flex-col gap-[22px] rounded-[24px] bg-gradient-to-r from-[#01FFA4] to-[#27F5D9] p-8 lg:w-[536px] lg:shrink-0">
+    <div class="flex items-center gap-[9px]"><svg class="h-[19px] w-[19px]"><use href="#i-check"/></svg><span class="text-[11px] font-bold tracking-[1.4px]">WHITE LABEL • E-COMMERCE</span></div>
+    <h3 class="f-inter text-[32px] font-bold leading-[1.15]">Seu e-commerce.<br>Sua marca em cada venda.</h3>
+    <p class="text-[15px] leading-[1.7] text-[#144C3C]">Uma solução especializada na venda de máquinas de cartão, com dashboard personalizável e recursos para organizar suas vendas, seus afiliados e sua operação.</p>
+    <ul class="grid grid-cols-1 gap-[14px] text-[14px] sm:grid-cols-2">
+      <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Venda de máquinas de cartão</li>
+      <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Dashboard personalizável</li>
+      <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Gestão de afiliados</li>
+      <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Cálculo de frete</li>
+      <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Emissão de notas fiscais</li>
+      <li class="flex items-center gap-[10px]"><svg class="h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Split de pagamentos</li>
+    </ul>
+    <button data-open-modal class="flex h-[54px] w-max items-center gap-3 rounded-full bg-[#008860] pl-[7px] pr-[22px] text-[14px] font-bold text-white transition-colors hover:bg-[#006b4b]">
+      <span class="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white text-[#008860]"><svg class="h-[19px] w-[19px]"><use href="#i-arrow"/></svg></span>
+      Quero meu e-commerce white label
+    </button>
+  </div>
+
+  <div class="flex w-full flex-1 flex-col gap-5 rounded-[32px] bg-[#EEFBF5] px-5 pb-[22px] pt-9 lg:h-[520px] lg:px-9">
+    <div class="overflow-hidden rounded-[16px] bg-white shadow-[0_16px_40px_rgba(6,62,36,0.13)]">
+      <div class="flex h-8 items-center gap-[5px] bg-[#F4F7F6] px-3"><i class="h-[6px] w-[6px] rounded-full bg-[#CFD9D4]"></i><i class="h-[6px] w-[6px] rounded-full bg-[#CFD9D4]"></i><i class="h-[6px] w-[6px] rounded-full bg-[#CFD9D4]"></i><span class="flex-1 pr-[40px] text-center text-[9px] text-[#55615B]">Sua marca • E-commerce</span></div>
+      <div class="flex items-center justify-between px-[22px] py-[18px]"><span class="text-[17px] font-extrabold text-[#008860]">sua marca</span><div class="flex items-center gap-5 text-[#008860]"><span class="text-[9px] text-[#55615B]">Máquinas de cartão</span><svg class="h-[18px] w-[18px]"><use href="#i-cart"/></svg></div></div>
+      <div class="flex h-[218px] items-center bg-[#E8FAF1] pl-6 pr-[10px]">
+        <div class="flex w-[198px] shrink-0 flex-col items-start gap-3">
+          <h4 class="f-inter text-[26px] leading-[1.15] tracking-[-0.7px]">Sua próxima venda começa aqui.</h4>
+          <span class="rounded-full bg-[#008860] px-3 py-[9px] text-[8px] font-bold text-white">Conhecer as máquinas →</span>
+        </div>
+        <img src="https://api.builder.io/api/v1/image/assets/TEMP/a0255e6671c0825a7782d799fddd8df58b3a4578?width=728" alt="Máquinas de cartão" class="h-[210px] min-w-0 flex-1 object-contain" />
+      </div>
+      <div class="flex gap-3 p-[22px] text-[#008860]">
+        <div class="flex flex-1 flex-col items-center gap-[10px]"><svg class="h-[22px] w-[22px]"><use href="#i-truck"/></svg><span class="text-[10px] font-semibold text-[#101714]">Frete</span></div>
+        <div class="flex flex-1 flex-col items-center gap-[10px]"><svg class="h-[22px] w-[22px]"><use href="#i-file"/></svg><span class="text-[10px] font-semibold text-[#101714]">Notas fiscais</span></div>
+        <div class="flex flex-1 flex-col items-center gap-[10px]"><svg class="h-[22px] w-[22px]"><use href="#i-users"/></svg><span class="text-[10px] font-semibold text-[#101714]">Afiliados</span></div>
+      </div>
+    </div>
+    <p class="text-[11px] leading-[1.5] text-[#55615B]">Representação ilustrativa de uma loja com identidade própria.</p>
+  </div>
+</section>
+
+<!-- Quem somos -->
+<section id="quem-somos" class="scroll-mt-24 bg-[#F6F9F7] px-6 py-20 lg:px-[100px]">
+  <div class="mx-auto flex max-w-[1240px] flex-col gap-9">
+    <div class="flex flex-col items-start gap-10 lg:flex-row lg:gap-[92px]">
+      <div class="flex w-full flex-col gap-5 lg:w-[500px]">
+        <div class="flex items-center gap-[9px]"><span class="h-[6px] w-[6px] rounded-full bg-[#008860]"></span><span class="text-[12px] font-bold tracking-[1.6px] text-[#008860]">SOMOS A MULTIHUB</span></div>
+        <h2 class="f-inter text-[34px] font-bold leading-[1.15] tracking-[-1.5px] lg:text-[42px]">Conectamos tecnologia<br>ao seu próximo negócio.</h2>
+      </div>
+      <div class="flex flex-1 flex-col gap-[18px] lg:pt-[34px]">
+        <p class="text-[16px] leading-[1.75] text-[#55615B]">A Multihub reúne soluções e especialidades em um só lugar para atender às necessidades de diferentes negócios.</p>
+        <p class="text-[16px] leading-[1.75] text-[#55615B]">Com o modelo white label, aproximamos essa tecnologia da sua marca. Você encontra uma base pronta para oferecer pagamentos e e-commerce com identidade própria e suporte contínuo.</p>
+      </div>
+    </div>
+    <div class="h-px bg-[#DCE8E1]"></div>
+    <div class="flex flex-col justify-between gap-6 text-[#008860] md:flex-row">
+      <div class="flex items-center gap-[14px]"><svg class="h-[25px] w-[25px]"><use href="#i-blocks"/></svg><span class="text-[17px] font-bold text-[#101714]">Tecnologia pronta</span></div>
+      <div class="flex items-center gap-[14px]"><svg class="h-[25px] w-[25px]"><use href="#i-finger"/></svg><span class="text-[17px] font-bold text-[#101714]">Identidade própria</span></div>
+      <div class="flex items-center gap-[14px]"><svg class="h-[25px] w-[25px]"><use href="#i-headset"/></svg><span class="text-[17px] font-bold text-[#101714]">Apoio contínuo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Reunião com o CEO -->
+<section id="reuniao" class="scroll-mt-24 overflow-hidden bg-[#EEFBF5]">
+  <div class="mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-6 py-16 lg:flex-row lg:gap-10 lg:px-[100px] lg:py-[96px]">
+    <div class="flex w-full flex-col gap-6 lg:w-[600px] lg:shrink-0">
+      <div class="flex items-center gap-[9px] text-[#01FFA4]"><svg class="h-[19px] w-[19px]"><use href="#i-check"/></svg><span class="text-[11px] font-bold uppercase tracking-[1.4px] text-[#008860]">Reunião com a Multihub</span></div>
+      <h2 class="f-inter text-[36px] font-bold leading-[1.15] lg:text-[48px]">Transforme seu CNPJ em uma <span class="text-[#008860]">máquina de lucro</span> no mercado de pagamentos.</h2>
+      <p class="text-[16px] leading-[1.7] text-[#55615B]">Milhares de empresas já faturam alto com soluções white label de pagamentos. A pergunta é: <strong class="text-[#101714]">Por que a sua ainda não está nesse mercado?</strong> Em uma reunião de 30 minutos, mostramos exatamente como você pode começar.</p>
+      <div class="flex flex-col gap-4">
+        <div class="flex h-16 items-center gap-4 rounded-[12px] bg-white px-[11px] shadow-[0_4px_16px_rgba(6,62,36,0.08)]"><span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#27F5D9] to-[#01FFA4]"><svg class="h-4 w-4"><use href="#i-tick"/></svg></span><span class="text-[14px] font-semibold">Sem investimento inicial obrigatório para começar</span></div>
+        <div class="flex h-16 items-center gap-4 rounded-[12px] bg-white px-[11px] shadow-[0_4px_16px_rgba(6,62,36,0.08)]"><span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#27F5D9] to-[#01FFA4]"><svg class="h-4 w-4"><use href="#i-tick"/></svg></span><span class="text-[14px] font-semibold">Sua marca, sua empresa — 100% white label</span></div>
+        <div class="flex h-16 items-center gap-4 rounded-[12px] bg-white px-[11px] shadow-[0_4px_16px_rgba(6,62,36,0.08)]"><span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#27F5D9] to-[#01FFA4]"><svg class="h-4 w-4"><use href="#i-tick"/></svg></span><span class="text-[14px] font-semibold">Suporte completo da Multihub do início ao fim</span></div>
+      </div>
+    </div>
+
+    <div class="w-full flex-1 rounded-[24px] bg-white p-6 shadow-[0_16px_40px_rgba(6,62,36,0.13)] sm:p-8">
+      <div class="flex items-center gap-[9px] text-[#01FFA4]"><svg class="h-[19px] w-[19px]"><use href="#i-check"/></svg><span class="text-[11px] font-bold uppercase tracking-[1.4px] text-[#008860]">Reunião com a Multihub</span></div>
+      <h3 class="f-inter mt-4 text-[28px] font-bold leading-[1.15]">Tenha sua empresa de meios de pagamentos.</h3>
+      <p class="mt-4 text-[15px] leading-[1.7] text-[#55615B]">A reunião é ideal para discutir a melhor forma de entrar no mercado com uma solução white label, sem intermediários, e entender como a Multihub pode apoiar a sua operação.</p>
+      <ul class="mt-6 grid grid-cols-1 gap-x-4 gap-y-4 text-[14px] sm:grid-cols-2">
+        <li class="flex items-start gap-[10px]"><svg class="mt-[2px] h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Maquininha de cartão &amp; Vendas Online</li>
+        <li class="flex items-start gap-[10px]"><svg class="mt-[2px] h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Sem intermediários</li>
+        <li class="flex items-start gap-[10px]"><svg class="mt-[2px] h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Sem necessidade de experiência no ramo</li>
+        <li class="flex items-start gap-[10px]"><svg class="mt-[2px] h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Sem necessidade de estoque</li>
+        <li class="flex items-start gap-[10px]"><svg class="mt-[2px] h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Liberdade de horário e home office</li>
+        <li class="flex items-start gap-[10px]"><svg class="mt-[2px] h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Foco na captação de clientes</li>
+        <li class="flex items-start gap-[10px]"><svg class="mt-[2px] h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>Materiais digitais de divulgação gratuitos</li>
+        <li class="flex items-start gap-[10px]"><svg class="mt-[2px] h-[18px] w-[18px] shrink-0 text-[#008860]"><use href="#i-check"/></svg>CNPJ ativo necessário</li>
+      </ul>
+      <button data-open-modal class="mt-7 flex h-[54px] w-full items-center gap-3 rounded-full bg-gradient-to-r from-[#01FFA4] to-[#27F5D9] pl-[7px] pr-[22px] text-[15px] font-bold text-[#101714] shadow-[0_4px_16px_rgba(1,255,164,0.2)] transition-opacity hover:opacity-90">
+        <span class="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-[#101714] text-[#01FFA4]"><svg class="h-[19px] w-[19px]"><use href="#i-arrow"/></svg></span>
+        <span class="flex-1 pr-[31px] text-center">Agendar reunião com a Multihub</span>
+      </button>
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12px] text-[#55615B]">
+        <span class="flex items-center gap-[6px] text-[#008860]"><svg class="h-[14px] w-[14px]"><use href="#i-star"/></svg><span class="text-[#55615B]">100% gratuito</span></span>
+        <i class="hidden h-3 w-px bg-[#D1E8DC] sm:block"></i>
+        <span class="flex items-center gap-[6px] text-[#008860]"><svg class="h-[14px] w-[14px]"><use href="#i-clock"/></svg><span class="text-[#55615B]">30 minutos</span></span>
+        <i class="hidden h-3 w-px bg-[#D1E8DC] sm:block"></i>
+        <span class="flex items-center gap-[6px] text-[#008860]"><svg class="h-[14px] w-[14px]"><use href="#i-calendar"/></svg><span class="text-[#55615B]">Escolha seu horário</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Convite para conversar -->
+<section class="bg-gradient-to-r from-[#01FFA4] to-[#27F5D9]">
+  <div class="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-8 px-6 py-[70px] md:flex-row md:items-center lg:px-[100px]">
+    <div class="flex w-full flex-col gap-5 lg:w-[730px]">
+      <span class="text-[12px] font-bold tracking-[1.5px]">O PRÓXIMO PASSO É UMA CONVERSA.</span>
+      <h2 class="f-inter text-[36px] leading-[1.1] tracking-[-1.6px] lg:text-[46px]">Vamos colocar a sua marca<br>nessa tecnologia?</h2>
+      <p class="max-w-[650px] text-[16px] leading-[1.65] text-[#174D3C]">Conte à Multihub o que você quer oferecer. Converse com nossa equipe sobre a solução e a personalização para o seu negócio.</p>
+    </div>
+    <div class="flex flex-col items-center gap-[18px]">
+      <button data-open-modal class="flex h-[54px] items-center gap-3 rounded-full bg-[#008860] pl-[7px] pr-[22px] text-[14px] font-bold text-white transition-colors hover:bg-[#006b4b]">
+        <span class="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white text-[#008860]"><svg class="h-[19px] w-[19px]"><use href="#i-arrow"/></svg></span>
+        Fale com a Multihub
+      </button>
+      <a href="mailto:suporte@multihub.com.br" class="text-[14px] font-semibold hover:underline">suporte@multihub.com.br</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-[#080D0B] px-6 pb-7 pt-16 lg:px-[100px]">
+  <div class="mx-auto flex max-w-[1240px] flex-col gap-[42px]">
+    <div class="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+      <svg class="h-[43px] w-[190px] text-white"><use href="#logo"/></svg>
+      <nav class="flex flex-wrap gap-[30px] text-[13px] text-[#B7C9C1]">
+        <a href="#white-label" class="hover:text-white">White label</a>
+        <a href="#solucoes" class="hover:text-white">Gestor de pagamentos</a>
+        <a href="#solucoes" class="hover:text-white">E-commerce</a>
+        <a href="#quem-somos" class="hover:text-white">Quem somos</a>
+      </nav>
+    </div>
+    <div class="h-px bg-[#294037]"></div>
+    <div class="flex flex-col gap-10 lg:flex-row lg:gap-[54px]">
+      <div class="flex w-full flex-col gap-[14px] lg:w-[300px]">
+        <h4 class="text-[17px] font-bold text-white">Fale com a gente</h4>
+        <a href="mailto:suporte@multihub.com.br" class="text-[15px] text-[#01FFA4] hover:underline">suporte@multihub.com.br</a>
+        <p class="text-[13px] leading-[1.8] text-[#B7C9C1]">Atendimento de segunda a sexta-feira,<br>das 09h às 18h.</p>
+      </div>
+      <div class="flex w-full flex-col gap-[14px] lg:w-[340px]">
+        <div class="flex items-center gap-[9px] text-[#01FFA4]"><svg class="h-[18px] w-[18px]"><use href="#i-pin"/></svg><h4 class="text-[17px] font-bold text-white">Matriz • SP</h4></div>
+        <p class="text-[13px] leading-[1.9] text-[#B7C9C1]">Alameda Rio Negro, 503 sala 2020<br>Alphaville - Barueri - SP<br>CEP 06.454-000</p>
+      </div>
+      <div class="flex flex-1 flex-col gap-[14px]">
+        <div class="flex items-center gap-[9px] text-[#01FFA4]"><svg class="h-[18px] w-[18px]"><use href="#i-pin"/></svg><h4 class="text-[17px] font-bold text-white">Filial • ES</h4></div>
+        <p class="text-[13px] leading-[1.9] text-[#B7C9C1]">Av. Doutor Olívio Lira, 353 sala 613 - Shopping Praia da Costa<br>Praia da Costa - Vila Velha - ES<br>CEP 29.101-950</p>
+      </div>
+    </div>
+    <div class="h-px bg-[#294037]"></div>
+    <div class="flex flex-col justify-between gap-2 text-[11px] text-[#B7C9C1] md:flex-row">
+      <span>Multihub © 2026. Todos os direitos reservados.</span>
+      <span>CNPJ 24.865.916/0001-72</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal: reunião com o CEO -->
+<div id="meeting-modal" class="fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto bg-[#080D0B]/60 p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <form id="meeting-form" novalidate class="my-auto flex w-full max-w-[560px] flex-col gap-5 rounded-[24px] border border-[#DCE8E1] bg-white p-6 shadow-[0_16px_40px_rgba(6,62,36,0.13)]">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-1 flex-col gap-[6px]">
+        <span id="modal-step-label" class="text-[11px] font-bold tracking-[1.4px] text-[#008860]">REUNIÃO COM O ESPECIALISTA · ETAPA 1 DE 3</span>
+        <h3 id="modal-title" class="f-inter text-[24px] font-bold leading-[1.15]">Solicitar reunião com nossos especialistas em meios de pagamento</h3>
+        <p class="text-[13px] leading-[1.6] text-[#55615B]">Converse com nossos especialistas pelo Google Meet. Conte um pouco sobre você e seu negócio.</p>
+      </div>
+      <button type="button" data-close-modal aria-label="Fechar" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#DCE8E1] bg-[#F4F7F6] text-[#55615B] hover:bg-[#E8EFEB]"><svg class="h-4 w-4"><use href="#i-x"/></svg></button>
+    </div>
+
+    <!-- Etapa 1 -->
+    <div data-step="1" class="flex flex-col gap-4">
+      <div class="flex items-center gap-[10px]"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#008860] text-[12px] font-bold text-white">1</span><span class="text-[14px] font-bold">Dados de contato</span></div>
+      <div class="flex flex-col gap-3">
+        <label class="flex flex-col gap-[6px] text-[12px] font-bold">Nome<input name="nome" required type="text" placeholder="Digite seu nome" class="field h-12 rounded-[12px] border border-[#DCE8E1] bg-white px-[14px] text-[14px] font-normal placeholder:text-[#55615B]" /></label>
+        <label class="flex flex-col gap-[6px] text-[12px] font-bold">E-mail<input name="email" required type="email" placeholder="nome@empresa.com.br" class="field h-12 rounded-[12px] border border-[#DCE8E1] bg-white px-[14px] text-[14px] font-normal placeholder:text-[#55615B]" /></label>
+        <label class="flex flex-col gap-[6px] text-[12px] font-bold">Whatsapp para contato<input name="whatsapp" required type="tel" inputmode="tel" placeholder="(XX) NNNNN-NNNN" class="field h-12 rounded-[12px] border border-[#DCE8E1] bg-white px-[14px] text-[14px] font-normal placeholder:text-[#55615B]" /></label>
+        <label class="flex flex-col gap-[6px] text-[12px] font-bold">Empresa (opcional)<input name="empresa" type="text" placeholder="Nome da sua empresa" class="field h-12 rounded-[12px] border border-[#DCE8E1] bg-white px-[14px] text-[14px] font-normal placeholder:text-[#55615B]" /></label>
+      </div>
+    </div>
+
+    <!-- Etapa 2 -->
+    <div data-step="2" class="hidden flex-col gap-4">
+      <div class="flex items-center gap-[10px]"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#008860] text-[12px] font-bold text-white">2</span><span class="text-[14px] font-bold">Perfil e interesse</span></div>
+      <label class="flex flex-col gap-[6px] text-[12px] font-bold">Perfil de atuação
+        <span class="relative"><select name="perfil" required class="field h-12 w-full appearance-none rounded-[12px] border border-[#DCE8E1] bg-white px-[14px] pr-10 text-[14px] font-normal text-[#101714]">
+          <option value="">Selecione uma opção</option><option>Empreendedor(a) iniciante</option><option>Empresário(a) com negócio ativo</option><option>Vendedor(a) autônomo(a)</option><option>Agência ou consultoria</option><option>Outro</option>
+        </select><svg class="pointer-events-none absolute right-[14px] top-1/2 h-4 w-4 -translate-y-1/2 text-[#101714]"><use href="#i-chevron"/></svg></span>
+      </label>
+      <div class="flex flex-col gap-2">
+        <span class="text-[12px] font-bold">Interesse principal</span>
+        <div class="flex flex-wrap gap-2" data-chips="interesse">
+          <button type="button" aria-pressed="false" class="chip h-9 rounded-full border border-[#DCE8E1] bg-white px-4 text-[12px] font-bold">Maquininhas</button>
+          <button type="button" aria-pressed="false" class="chip h-9 rounded-full border border-[#DCE8E1] bg-white px-4 text-[12px] font-bold">Vendas online</button>
+          <button type="button" aria-pressed="false" class="chip h-9 rounded-full border border-[#DCE8E1] bg-white px-4 text-[12px] font-bold">Ambos</button>
+        </div>
+      </div>
+      <label class="flex flex-col gap-[6px] text-[12px] font-bold">Você possui CNPJ ativo?<input name="cnpj" type="text" placeholder="Sim / Ainda não / Em abertura" class="field h-12 rounded-[12px] border border-[#DCE8E1] bg-white px-[14px] text-[14px] font-normal placeholder:text-[#55615B]" /></label>
+    </div>
+
+    <!-- Etapa 3 -->
+    <div data-step="3" class="hidden flex-col gap-4">
+      <div class="flex items-center gap-[10px]"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#008860] text-[12px] font-bold text-white">3</span><span class="text-[14px] font-bold">Carteira e prazo</span></div>
+      <div class="flex flex-col gap-2">
+        <span class="text-[12px] font-bold">Já possui carteira de clientes?</span>
+        <div class="flex gap-2" data-chips="carteira">
+          <button type="button" aria-pressed="false" class="chip h-9 rounded-full border border-[#DCE8E1] bg-white px-4 text-[12px] font-bold">Sim</button>
+          <button type="button" aria-pressed="false" class="chip h-9 rounded-full border border-[#DCE8E1] bg-white px-4 text-[12px] font-bold">Não</button>
+        </div>
+      </div>
+      <label class="flex flex-col gap-[6px] text-[12px] font-bold">Prazo para começar
+        <span class="relative"><select name="prazo" class="field h-12 w-full appearance-none rounded-[12px] border border-[#DCE8E1] bg-white px-[14px] pr-10 text-[14px] font-normal text-[#101714]">
+          <option value="">Selecione uma opção</option><option>Imediatamente</option><option>Em até 30 dias</option><option>Em 1 a 3 meses</option><option>Mais de 3 meses</option><option>Ainda estou avaliando</option>
+        </select><svg class="pointer-events-none absolute right-[14px] top-1/2 h-4 w-4 -translate-y-1/2 text-[#101714]"><use href="#i-chevron"/></svg></span>
+      </label>
+      <label class="flex flex-col gap-[6px] text-[12px] font-bold">Observações (opcional)<textarea name="observacoes" rows="3" placeholder="Compartilhe mais detalhes sobre o seu negócio ou o que você espera discutir na reunião." class="field resize-none rounded-[12px] border border-[#DCE8E1] bg-white px-[14px] py-3 text-[14px] font-normal leading-[1.4] placeholder:text-[#55615B]"></textarea></label>
+    </div>
+
+    <!-- Sucesso -->
+    <div data-step="done" class="hidden flex-col items-center gap-3 py-8 text-center">
+      <span class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#27F5D9] to-[#01FFA4]"><svg class="h-6 w-6"><use href="#i-tick"/></svg></span>
+      <h4 class="f-inter text-[22px] font-bold">Solicitação enviada!</h4>
+      <p class="max-w-[360px] text-[14px] leading-[1.6] text-[#55615B]">Recebemos seus dados. Confirmaremos data e horário por e-mail para a reunião pelo Google Meet.</p>
+      <button type="button" data-close-modal class="mt-2 h-11 rounded-full bg-[#008860] px-6 text-[13px] font-bold text-white hover:bg-[#006b4b]">Fechar</button>
+    </div>
+
+    <p id="form-error" class="hidden text-[12px] font-semibold text-[#C0392B]" role="alert"></p>
+
+    <div id="modal-footer" class="flex flex-col items-start gap-[14px]">
+      <p class="text-[12px] leading-[1.6] text-[#55615B]">Usaremos seus dados para preparar a conversa e organizar o contato. Data e horário sujeitos à confirmação por e-mail.</p>
+      <button type="button" id="btn-back" class="hidden items-center gap-1 text-[13px] font-bold text-[#008860] hover:underline">← Voltar</button>
+      <button type="button" id="btn-next" class="flex h-[48px] items-center gap-3 rounded-full border border-[rgba(16,23,20,0.15)] bg-gradient-to-r from-[#01FFA4] to-[#27F5D9] pl-[7px] pr-[22px] text-[14px] font-bold text-[#101714] shadow-[0_10px_24px_-8px_rgba(0,136,96,0.12)] transition-opacity hover:opacity-90">
+        <span class="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#101714] text-[#01FFA4]"><svg class="h-[19px] w-[19px]"><use href="#i-arrow"/></svg></span>
+        <span id="btn-next-label">Continuar</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  (function () {
+    var modal = document.getElementById('meeting-modal');
+    var form = document.getElementById('meeting-form');
+    var label = document.getElementById('modal-step-label');
+    var next = document.getElementById('btn-next');
+    var nextLabel = document.getElementById('btn-next-label');
+    var back = document.getElementById('btn-back');
+    var footer = document.getElementById('modal-footer');
+    var errorEl = document.getElementById('form-error');
+    var step = 1;
+    var lastFocus = null;
+
+    function show(s) {
+      step = s;
+      form.querySelectorAll('[data-step]').forEach(function (el) {
+        var on = el.getAttribute('data-step') === String(s);
+        el.classList.toggle('hidden', !on);
+        el.classList.toggle('flex', on);
+      });
+      var done = s === 'done';
+      footer.classList.toggle('hidden', done);
+      errorEl.classList.add('hidden');
+      if (!done) {
+        label.textContent = 'REUNIÃO COM O NOSSO TIME · ETAPA ' + s + ' DE 3';
+        back.classList.toggle('hidden', s === 1);
+        back.classList.toggle('flex', s !== 1);
+        nextLabel.textContent = s === 3 ? 'Solicitar reunião' : 'Continuar';
+      } else {
+        label.textContent = 'REUNIÃO COM O NOSSO TIME · CONCLUÍDO';
+      }
+    }
+
+    function openModal() {
+      lastFocus = document.activeElement;
+      form.reset();
+      form.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+      show(1);
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      form.querySelector('[name="nome"]').focus();
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus();
+    }
+
+    function fail(msg, input) {
+      errorEl.textContent = msg;
+      errorEl.classList.remove('hidden');
+      if (input) input.focus();
+      return false;
+    }
+
+    function validate() {
+      if (step === 1) {
+        var nome = form.elements.nome, email = form.elements.email, wpp = form.elements.whatsapp;
+        if (!nome.value.trim()) return fail('Informe seu nome.', nome);
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) return fail('Informe um e-mail válido.', email);
+        if (wpp.value.replace(/\D/g, '').length < 10) return fail('Informe um WhatsApp válido com DDD.', wpp);
+      }
+      if (step === 2 && !form.elements.perfil.value) return fail('Selecione seu perfil de atuação.', form.elements.perfil);
+      errorEl.classList.add('hidden');
+      return true;
+    }
+
+    next.addEventListener('click', function () {
+      if (!validate()) return;
+      if (step < 3) return show(step + 1);
+      var data = Object.fromEntries(new FormData(form).entries());
+      form.querySelectorAll('[data-chips]').forEach(function (g) {
+        var p = g.querySelector('[aria-pressed="true"]');
+        data[g.getAttribute('data-chips')] = p ? p.textContent : '';
+      });
+      console.log('Solicitação de reunião', data);
+      show('done');
+    });
+
+    back.addEventListener('click', function () { if (step > 1) show(step - 1); });
+
+    form.querySelectorAll('[data-chips]').forEach(function (group) {
+      group.addEventListener('click', function (e) {
+        var btn = e.target.closest('.chip');
+        if (!btn) return;
+        group.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', String(c === btn)); });
+      });
+    });
+
+    form.addEventListener('submit', function (e) { e.preventDefault(); next.click(); });
+    document.querySelectorAll('[data-open-modal]').forEach(function (b) { b.addEventListener('click', openModal); });
+    modal.querySelectorAll('[data-close-modal]').forEach(function (b) { b.addEventListener('click', closeModal); });
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
+  })();
+</script>
+</body>
+</html>
